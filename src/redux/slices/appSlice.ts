@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Estate } from "../../interfaces/estate";
+import { RdxPayload } from "../../types/reduxPayload";
 
 export interface AppInfo {
   results: Estate[] | null;
@@ -13,7 +14,7 @@ export const appSlice = createSlice({
   name: "app",
   initialState,
   reducers: {
-    setResults: (state, action) => {
+    setResults: (state, action: RdxPayload<Estate[]>) => {
       state = {
         ...state,
         results: action.payload,

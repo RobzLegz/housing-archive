@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { IRef } from "../../interfaces/iRef";
 import RefComponentModule from "../../modules/RefComponentModules";
 import { AppInfo, selectApp } from "../../redux/slices/appSlice";
+import SearchResult from "./SearchResult";
 
 const ResultsContainer: React.FC<IRef> = ({ iRef }) => {
   const appInfo: AppInfo = useSelector(selectApp);
@@ -12,10 +13,9 @@ const ResultsContainer: React.FC<IRef> = ({ iRef }) => {
       ref={iRef}
       className="w-full flex flex-col items-center justify-center"
     >
-        <div className="h-screen"></div>
-        <div className="h-screen"></div>
-        <div className="h-screen"></div>
-        <div className="h-screen"></div>
+      {appInfo.results?.map((result, i) => (
+        <SearchResult data={result} key={i} />
+      ))}
     </RefComponentModule>
   );
 };

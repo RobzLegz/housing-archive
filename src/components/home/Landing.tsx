@@ -1,16 +1,32 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+import { searchRequest } from "../../requests/searchRequests";
 import ResultsContainer from "./ResultsContainer";
+import { useDispatch } from "react-redux";
 
 const Landing = () => {
+  const dispatch = useDispatch();
   const resultsRef =
     useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>;
 
   const router = useRouter();
 
-  const handleSearch = (e: React.MouseEvent) => {
+  const [searchQ, setSearchQ] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSearch = async (e: React.MouseEvent) => {
     e.preventDefault();
+
+    if (loading || !searchQ) {
+      return;
+    }
+
+    setLoading(true);
+
+    await searchRequest({ dispatch, query: searchQ });
+
+    setLoading(false);
   };
 
   return (
@@ -44,11 +60,14 @@ const Landing = () => {
               id="search"
               placeholder="Meklē dzīvokļus, īpašumus..."
               className="w-full h-full border-0 rounded-l-full outline-none px-5 text-lg"
+              value={searchQ}
+              onChange={(e) => setSearchQ(e.target.value)}
             />
 
             <button
               type="submit"
               onClick={handleSearch}
+              disabled={!searchQ || loading}
               className="w-40 h-full rounded-r-full bg-[#45b2d7] hover:bg-[#0998c8] text-white"
             >
               Meklēt

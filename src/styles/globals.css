@@ -7,6 +7,10 @@
     @apply p-0 m-0 box-border font-hind_vadodara;
   }
 
+  body{
+    @apply bg-[#eee];
+  }
+
   h1 {
     @apply text-6xl font-semibold leading-[70px];
   }
