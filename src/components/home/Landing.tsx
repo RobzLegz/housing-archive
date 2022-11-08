@@ -13,8 +13,10 @@ const Landing = () => {
         />
       </div>
 
-      <div className="flex w-[95%] max-w-[800px] rounded-lg bg-red-500 p-4 z-50 absolute top-0 left-0 h-80">
-        <input type="text" name="search" id="search" />
+      <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
+        <div className="flex w-[95%] max-w-[800px] rounded-lg bg-white p-4 z-50">
+          <input type="text" name="search" id="search" className="flex-1" />
+        </div>
       </div>
     </form>
   );

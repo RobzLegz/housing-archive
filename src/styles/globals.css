@@ -6,4 +6,8 @@
   * {
     @apply p-0 m-0 box-border font-hind_vadodara;
   }
+
+  input {
+    @apply border-2 border-gray-400 h-10 px-2;
+  }
 }
