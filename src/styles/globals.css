@@ -4,6 +4,6 @@
 
 @layer components {
   * {
-    @apply p-0 m-0 box-border;
+    @apply p-0 m-0 box-border font-hind_vadodara;
   }
 }
