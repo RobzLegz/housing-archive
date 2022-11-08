@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  * {
+    @apply p-0 m-0 box-border;
+  }
+}
