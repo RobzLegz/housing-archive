@@ -1,13 +1,16 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React from "react";
 
 const Landing = () => {
+  const router = useRouter();
+
   const handleSearch = (e: React.MouseEvent) => {
     e.preventDefault();
   };
 
   return (
-    <form className="w-full h-screen flex flex-col items-start justify-start relative">
+    <form className="w-full flex flex-col items-start justify-start relative">
       <div className="w-full h-[90vh] relative">
         <Image
           src="/images/splash-house.jpg"
