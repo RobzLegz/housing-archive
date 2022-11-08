@@ -51,8 +51,8 @@ const Landing = () => {
 
       <div className="h-[56vh]"></div>
 
-      <div className="w-full sticky top-8 flex items-center justify-center">
-        <div className="flex w-[95%] max-w-[1000px] rounded-full bg-transparent z-50 flex-col items-center justify-center shadow-2xl h-12 ">
+      <div className="w-full sticky top-8 flex items-center justify-center z-50">
+        <div className="flex w-[95%] max-w-[1000px] rounded-full bg-transparent flex-col items-center justify-center shadow-2xl h-12 ">
           <div className="w-full h-full flex">
             <input
               type="text"

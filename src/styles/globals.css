@@ -15,6 +15,14 @@
     @apply text-6xl font-semibold leading-[70px];
   }
 
+  h2 {
+    @apply text-6xl font-semibold leading-[70px];
+  }
+
+  h3 {
+    @apply text-lg font-semibold ;
+  }
+
   button{
     @apply transition-all duration-300;
   }

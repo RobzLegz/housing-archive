@@ -11,7 +11,7 @@ const ResultsContainer: React.FC<IRef> = ({ iRef }) => {
   return (
     <RefComponentModule
       ref={iRef}
-      className="w-full flex flex-col items-center justify-center"
+      className="w-full flex flex-col items-center justify-center mt-[10vh] z-10"
     >
       {appInfo.results?.map((result, i) => (
         <SearchResult data={result} key={i} />
