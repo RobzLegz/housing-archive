@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React from "react";
-import { PageComponent } from "../types/PageModule";
+import { PageComponent } from "../types/pageModule";
 
 interface PageModuleProps {
   title?: string;
