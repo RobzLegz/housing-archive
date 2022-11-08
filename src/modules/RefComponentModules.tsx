@@ -12,7 +12,6 @@ const RefComponentModule = React.forwardRef<
       ref={ref}
       className={props.className ? props.className : ""}
       {...props}
-      display-name="ref-component"
     >
       {props.children}
     </section>
