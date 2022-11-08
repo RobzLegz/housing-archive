@@ -1,22 +1,30 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { searchRequest } from "../../requests/searchRequests";
 import ResultsContainer from "./ResultsContainer";
 import { useDispatch } from "react-redux";
+import { isServer } from "../../lib/isServer";
 
 const Landing = () => {
   const dispatch = useDispatch();
+
   const resultsRef =
+    useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>;
+  const landingRef =
     useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>;
 
   const router = useRouter();
 
-  const [searchQ, setSearchQ] = useState("");
+  const { s: urlQ } = router.query;
+
+  const [searchQ, setSearchQ] = useState(typeof urlQ !== "string" ? "" : urlQ);
   const [loading, setLoading] = useState(false);
 
-  const handleSearch = async (e: React.MouseEvent) => {
-    e.preventDefault();
+  const handleSearch = async (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
 
     if (loading || !searchQ) {
       return;
@@ -24,14 +32,23 @@ const Landing = () => {
 
     setLoading(true);
 
-    await searchRequest({ dispatch, query: searchQ });
+    await searchRequest({ dispatch, query: searchQ, router });
 
     setLoading(false);
+
+    landingRef.current.scrollIntoView({ behavior: "smooth" });
   };
+
+  useEffect(() => {
+    if (!isServer && typeof urlQ === "string") {
+      setSearchQ(urlQ);
+      searchRequest({ dispatch, query: urlQ, router });
+    }
+  }, [urlQ]);
 
   return (
     <form className="w-full flex flex-col items-start justify-start relative">
-      <div className="w-full h-[90vh] absolute">
+      <div className="w-full h-[90vh] absolute" ref={landingRef}>
         <Image
           src="/images/splash-house.jpg"
           alt="Splash house background"
@@ -51,8 +68,8 @@ const Landing = () => {
 
       <div className="h-[56vh]"></div>
 
-      <div className="w-full sticky top-8 flex items-center justify-center z-50">
-        <div className="flex w-[95%] max-w-[1000px] rounded-full bg-transparent flex-col items-center justify-center shadow-2xl h-12 ">
+      <div className="w-full sticky top-6 flex items-center justify-center z-50">
+        <div className="flex w-[95%] max-w-[1000px] rounded-full bg-transparent flex-col items-center justify-center shadow-2xl h-12 border-2 border-gray-300">
           <div className="w-full h-full flex">
             <input
               type="text"

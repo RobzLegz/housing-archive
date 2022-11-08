@@ -23,7 +23,9 @@ const EstateComponent: React.FC<EstateComponentProps> = ({ data }) => {
           <div className="flex items-center">
             <MapPinIcon className="h-6 text-gray-400" />
 
-            <p className="mr-2">{data.novads}</p>
+            <p>{data.novads}</p>
+
+            <p className="mx-1">|</p>
 
             <p>{data.pilsēta}</p>
           </div>
@@ -67,9 +69,11 @@ const EstateComponent: React.FC<EstateComponentProps> = ({ data }) => {
           <strong className="">Cena:</strong>
 
           <div className="flex">
-            <strong className="text-[#45b2d7] mr-1 text-lg">
+            <strong className="text-[#45b2d7] text-lg">
               {data.summa}
             </strong>
+
+            <p className="mx-1">|</p>
 
             <p>({data["1m2"]} / m2)</p>
           </div>
