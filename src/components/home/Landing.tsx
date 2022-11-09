@@ -21,6 +21,7 @@ const Landing = () => {
 
   const [searchQ, setSearchQ] = useState(typeof urlQ !== "string" ? "" : urlQ);
   const [city, setCity] = useState("");
+  const [rooms, setRooms] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSearch = async (e?: React.MouseEvent) => {
@@ -92,9 +93,11 @@ const Landing = () => {
           </button>
         </div>
 
-        <div className="flex items-center justify-start w-full px-6 mt-2 mr-2">
-          <div className="flex flex-col bg-white p-2 rounded-lg">
-            <label htmlFor="city">Pilsēta:</label>
+        <div className="flex items-center justify-start mt-2 mr-2 w-[95%] max-w-[1000px]">
+          <div className="flex flex-col bg-white pt-2 rounded-t-lg rounded-b-2xl overflow-hidden mr-2">
+            <label htmlFor="city" className="text-sm mb-1 ml-2">
+              Pilsēta:
+            </label>
 
             <select
               name="city"
@@ -106,6 +109,46 @@ const Landing = () => {
               {cities.map((city, i) => (
                 <option key={i} value={city.city}>
                   {city.city}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="flex flex-col bg-white pt-2 rounded-t-lg rounded-b-2xl overflow-hidden mr-2">
+            <label htmlFor="city" className="text-sm mb-1 mx-2">
+              Istabu skaits:
+            </label>
+
+            <select
+              name="city"
+              id="city"
+              className="h-8 rounded-full bg-gray-100 px-2 border-2 border-gray-300"
+              value={rooms}
+              onChange={(e) => setRooms(e.target.value)}
+            >
+              {Array.from(Array(7).keys()).map((roomCount, i) => (
+                <option key={i} value={roomCount + 1}>
+                  {roomCount + 1}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="flex flex-col bg-white pt-2 rounded-t-lg rounded-b-2xl overflow-hidden mr-2">
+            <label htmlFor="city" className="text-sm mb-1 mx-2">
+              Gads:
+            </label>
+
+            <select
+              name="city"
+              id="city"
+              className="h-8 rounded-full bg-gray-100 px-2 border-2 border-gray-300"
+              value={rooms}
+              onChange={(e) => setRooms(e.target.value)}
+            >
+              {Array.from(Array(84).keys()).map((roomCount, i) => (
+                <option key={i} value={roomCount + 1940}>
+                  {roomCount + 1940}
                 </option>
               ))}
             </select>
