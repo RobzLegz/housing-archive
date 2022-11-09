@@ -3,7 +3,7 @@ import { Estate } from "../../interfaces/estate";
 import { RdxPayload } from "../../types/reduxPayload";
 
 export interface AppInfo {
-  results: Estate[] | null;
+  results: Estate[][] | null;
 }
 
 const initialState: AppInfo = {
@@ -15,9 +15,29 @@ export const appSlice = createSlice({
   initialState,
   reducers: {
     setResults: (state, action: RdxPayload<Estate[]>) => {
+      const groupData = action.payload.reduce(
+        (group: Record<string, Estate[]>, estate: Estate) => {
+          const { kadastrs } = estate;
+
+          group[kadastrs] = group[kadastrs] ?? [];
+          group[kadastrs].push(estate);
+
+          return group;
+        },
+        {}
+      );
+
+      let groups: Estate[][] = [];
+
+      for (const groupKey in groupData) {
+        const group = groupData[groupKey];
+
+        groups = [...groups, group];
+      }
+
       state = {
         ...state,
-        results: action.payload,
+        results: groups,
       };
 
       return state;
