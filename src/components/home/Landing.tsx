@@ -71,11 +71,11 @@ const Landing = () => {
   };
 
   useEffect(() => {
-    if (!isServer) {
+    if (!isServer && windowSize.height) {
       window.addEventListener("scroll", transitionNavBar);
       return () => window.removeEventListener("scroll", transitionNavBar);
     }
-  }, []);
+  }, [windowSize.height]);
 
   // useEffect(() => {
   //   if (!isServer && typeof urlQ === "string") {
