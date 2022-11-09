@@ -8,6 +8,7 @@ import cities from "../../data/cities.json";
 import months from "../../data/months.json";
 import { isServer } from "../../lib/isServer";
 import useWindowSize from "../../hooks/useWindowSize";
+import Loading from "../notifications/Loading";
 
 const Landing = () => {
   const dispatch = useDispatch();
@@ -90,6 +91,7 @@ const Landing = () => {
           alt="Splash house background"
           className="rounded-r-full object-cover"
           draggable={false}
+          priority
           fill
         />
 
@@ -104,7 +106,11 @@ const Landing = () => {
 
       <div className="h-[56vh]"></div>
 
-      <div className={`w-full sticky top-0 flex flex-col items-center justify-center z-50 py-2 transition-colors duration-300  ${showBg ? "bg-white border-b-2" : ""}`}>
+      <div
+        className={`w-full sticky top-0 flex flex-col items-center justify-center z-50 py-2 transition-colors duration-300  ${
+          showBg ? "bg-white border-b-2" : ""
+        }`}
+      >
         <div className="flex w-[95%] max-w-[1000px] rounded-full items-center justify-center shadow-2xl overflow-hidden h-12">
           <input
             type="text"
@@ -123,9 +129,9 @@ const Landing = () => {
               (!searchQ && !city && !month && !year && !rooms && !regNr) ||
               loading
             }
-            className="w-40 h-full rounded-r-full bg-[#45b2d7] hover:bg-[#0998c8] disabled:hover:bg-[#45b2d7] text-white"
+            className="w-40 h-full rounded-r-full bg-[#45b2d7] hover:bg-[#0998c8] disabled:hover:bg-[#45b2d7] text-white flex items-center justify-center"
           >
-            Meklēt
+            {loading ? <Loading /> : <p>Meklēt</p>}
           </button>
         </div>
 
