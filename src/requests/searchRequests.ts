@@ -28,34 +28,43 @@ export const searchRequest = async ({
 }) => {
   // {/* city, county, rooms, limit, year, month, registry_id */}
 
+  let routerQuery: Record<string, string> = {};
+
   let route = `${API_BASE}?`;
 
   if (query) {
     route = `${route}search=${query}&`;
+    routerQuery["q"] = query;
   }
 
   if (city) {
     route = `${route}city=${city}&`;
+    routerQuery["city"] = city;
   }
 
   if (county) {
     route = `${route}county=${county}&`;
+    routerQuery["county"] = county;
   }
 
   if (rooms) {
     route = `${route}rooms=${rooms}&`;
+    routerQuery["rooms"] = rooms;
   }
 
   if (year) {
     route = `${route}year=${year}&`;
+    routerQuery["year"] = year;
   }
 
   if (month) {
     route = `${route}month=${month}&`;
+    routerQuery["month"] = month;
   }
 
   if (regNr) {
     route = `${route}registry_id=${regNr}`;
+    routerQuery["registry_id"] = regNr;
   }
 
   if (route.substring(route.length - 1, route.length) === "&") {
@@ -72,7 +81,7 @@ export const searchRequest = async ({
       router.push(
         {
           pathname: "/",
-          query: { q: query, city: city, county, rooms, year, month, regNr },
+          query: routerQuery,
         },
         undefined,
         { shallow: true }
