@@ -22,16 +22,35 @@ const Landing = () => {
 
   const router = useRouter();
 
-  const { q: urlQ } = router.query;
+  const {
+    q: urlQ,
+    registry_id,
+    month: rMonth,
+    year: rYear,
+    rooms: rRooms,
+    county: rCounty,
+    city: rCity,
+  } = router.query;
 
   const [searchQ, setSearchQ] = useState(typeof urlQ !== "string" ? "" : urlQ);
-  const [city, setCity] = useState("");
-  const [rooms, setRooms] = useState("");
-  const [year, setYear] = useState("");
-  const [month, setMonth] = useState("");
-  const [regNr, setRegNr] = useState("");
+  const [city, setCity] = useState(typeof rCity !== "string" ? "" : rCity);
+  const [rooms, setRooms] = useState(typeof rRooms !== "string" ? "" : rRooms);
+  const [year, setYear] = useState(typeof rYear !== "string" ? "" : rYear);
+  const [month, setMonth] = useState(typeof rMonth !== "string" ? "" : rMonth);
+  const [regNr, setRegNr] = useState(
+    typeof registry_id !== "string" ? "" : registry_id
+  );
   const [loading, setLoading] = useState(false);
   const [showBg, setShowBg] = useState(false);
+
+  useEffect(() => {
+    setSearchQ(typeof urlQ !== "string" ? "" : urlQ);
+    setCity(typeof rCity !== "string" ? "" : rCity);
+    setRooms(typeof rRooms !== "string" ? "" : rRooms);
+    setYear(typeof rYear !== "string" ? "" : rYear);
+    setMonth(typeof rMonth !== "string" ? "" : rMonth);
+    setRegNr(typeof registry_id !== "string" ? "" : registry_id);
+  }, [router.query]);
 
   const handleSearch = async (e?: React.MouseEvent) => {
     if (e) {
