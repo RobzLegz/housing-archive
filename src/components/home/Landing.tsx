@@ -6,9 +6,12 @@ import ResultsContainer from "./ResultsContainer";
 import { useDispatch } from "react-redux";
 import cities from "../../data/cities.json";
 import months from "../../data/months.json";
+import { isServer } from "../../lib/isServer";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const Landing = () => {
   const dispatch = useDispatch();
+  const windowSize = useWindowSize();
 
   const resultsRef =
     useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>;
@@ -26,6 +29,7 @@ const Landing = () => {
   const [month, setMonth] = useState("");
   const [regNr, setRegNr] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showBg, setShowBg] = useState(false);
 
   const handleSearch = async (e?: React.MouseEvent) => {
     if (e) {
@@ -53,6 +57,23 @@ const Landing = () => {
 
     landingRef.current.scrollIntoView({ behavior: "smooth" });
   };
+
+  const transitionNavBar = () => {
+    if (!isServer && windowSize.height) {
+      if (window.scrollY > windowSize.height * 0.56) {
+        setShowBg(true);
+      } else {
+        setShowBg(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (!isServer) {
+      window.addEventListener("scroll", transitionNavBar);
+      return () => window.removeEventListener("scroll", transitionNavBar);
+    }
+  }, []);
 
   // useEffect(() => {
   //   if (!isServer && typeof urlQ === "string") {
@@ -83,7 +104,7 @@ const Landing = () => {
 
       <div className="h-[56vh]"></div>
 
-      <div className="w-full sticky top-6 flex flex-col items-center justify-center z-50">
+      <div className={`w-full sticky top-0 flex flex-col items-center justify-center z-50 py-2 transition-colors duration-300  ${showBg ? "bg-white border-b-2" : ""}`}>
         <div className="flex w-[95%] max-w-[1000px] rounded-full items-center justify-center shadow-2xl overflow-hidden h-12">
           <input
             type="text"
