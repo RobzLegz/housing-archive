@@ -10,6 +10,9 @@ import { isServer } from "../../lib/isServer";
 import useWindowSize from "../../hooks/useWindowSize";
 import Loading from "../notifications/Loading";
 
+const filterStyle =
+  "flex flex-col bg-white pt-2 rounded-t-lg rounded-b-2xl overflow-hidden flex-1 shadow-lg border-2";
+
 const Landing = () => {
   const dispatch = useDispatch();
   const windowSize = useWindowSize();
@@ -136,7 +139,7 @@ const Landing = () => {
         </div>
 
         <div className="grid items-center grid-cols-2 md:grid-cols-4 mt-2 w-[95%] max-w-[1000px] gap-2">
-          <div className="flex flex-col bg-white pt-2 rounded-t-lg rounded-b-2xl overflow-hidden flex-1 shadow-lg">
+          <div className={filterStyle}>
             <label htmlFor="city" className="text-sm mb-1 ml-2">
               Pilsēta:
             </label>
@@ -157,7 +160,7 @@ const Landing = () => {
             </select>
           </div>
 
-          <div className="flex flex-col bg-white pt-2 rounded-t-lg rounded-b-2xl overflow-hidden flex-1 shadow-lg">
+          <div className={filterStyle}>
             <label htmlFor="rooms" className="text-sm mb-1 mx-2">
               Istabu skaits:
             </label>
@@ -178,7 +181,7 @@ const Landing = () => {
             </select>
           </div>
 
-          <div className="flex flex-col bg-white pt-2 rounded-t-lg rounded-b-2xl overflow-hidden flex-1 shadow-lg">
+          <div className={filterStyle}>
             <label htmlFor="year" className="text-sm mb-1 mx-2">
               Gads:
             </label>
@@ -202,7 +205,7 @@ const Landing = () => {
             </select>
           </div>
 
-          <div className="flex flex-col bg-white pt-2 rounded-t-lg rounded-b-2xl overflow-hidden flex-1 shadow-lg">
+          <div className={filterStyle}>
             <label htmlFor="month" className="text-sm mb-1 mx-2">
               Mēnesis:
             </label>
@@ -224,7 +227,7 @@ const Landing = () => {
             </select>
           </div>
 
-          {/* <div className="flex flex-col bg-white pt-2 rounded-t-lg rounded-b-2xl overflow-hidden flex-1 shadow-lg">
+          {/* <div className={filterStyle}>
             <label htmlFor="reg_nr" className="text-sm mb-1 mx-2">
               Reģistrācijas Nr.:
             </label>
