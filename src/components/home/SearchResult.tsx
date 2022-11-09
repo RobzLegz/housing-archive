@@ -64,6 +64,12 @@ const EstateComponent: React.FC<EstateComponentProps> = ({ data }) => {
         </div>
 
         <div className="w-full flex justify-start items-end pl-1">
+          <p>Ekspluatācijas Gads:</p>
+
+          <strong className="ml-1">{estate.gads}</strong>
+        </div>
+
+        <div className="w-full flex justify-start items-end pl-1">
           <strong className="text-[#45b2d7] mr-1 text-xl">
             {estate.istabas}
           </strong>
@@ -78,7 +84,10 @@ const EstateComponent: React.FC<EstateComponentProps> = ({ data }) => {
 
           <div className="w-full flex flex-col">
             {data.map((es, i) => (
-              <div key={i} className="flex items-center justify-between flex-row">
+              <div
+                key={i}
+                className="flex items-center justify-between flex-row"
+              >
                 <div className="flex">
                   <strong className="text-[#45b2d7] md:text-lg">
                     {es.summa}
@@ -91,8 +100,6 @@ const EstateComponent: React.FC<EstateComponentProps> = ({ data }) => {
 
                 <div className="flex items-center text-gray-500">
                   <small>{es.datums}</small>
-                  <p className="mx-1">|</p>
-                  <small>{es.gads}</small>
                 </div>
               </div>
             ))}
