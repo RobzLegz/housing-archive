@@ -5,6 +5,7 @@ import { searchRequest } from "../../requests/searchRequests";
 import ResultsContainer from "./ResultsContainer";
 import { useDispatch } from "react-redux";
 import { isServer } from "../../lib/isServer";
+import cities from "../../data/cities.json";
 
 const Landing = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const Landing = () => {
   const { s: urlQ } = router.query;
 
   const [searchQ, setSearchQ] = useState(typeof urlQ !== "string" ? "" : urlQ);
+  const [city, setCity] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSearch = async (e?: React.MouseEvent) => {
@@ -39,12 +41,12 @@ const Landing = () => {
     landingRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(() => {
-    if (!isServer && typeof urlQ === "string") {
-      setSearchQ(urlQ);
-      searchRequest({ dispatch, query: urlQ, router });
-    }
-  }, [urlQ]);
+  // useEffect(() => {
+  //   if (!isServer && typeof urlQ === "string") {
+  //     setSearchQ(urlQ);
+  //     searchRequest({ dispatch, query: urlQ, router });
+  //   }
+  // }, [urlQ]);
 
   return (
     <form className="w-full flex flex-col items-start justify-start relative">
@@ -68,29 +70,51 @@ const Landing = () => {
 
       <div className="h-[56vh]"></div>
 
-      <div className="w-full sticky top-6 flex items-center justify-center z-50">
-        <div className="flex w-[95%] max-w-[1000px] rounded-full bg-transparent flex-col items-center justify-center shadow-2xl h-12 border-2 border-gray-300">
-          <div className="w-full h-full flex">
-            <input
-              type="text"
-              name="search"
-              id="search"
-              placeholder="Meklē dzīvokļus, īpašumus..."
-              className="w-full h-full border-0 rounded-l-full outline-none px-5 text-lg"
-              value={searchQ}
-              onChange={(e) => setSearchQ(e.target.value)}
-            />
+      <div className="w-full sticky top-6 flex flex-col items-center justify-center z-50">
+        <div className="flex w-[95%] max-w-[1000px] rounded-full items-center justify-center shadow-2xl overflow-hidden h-12">
+          <input
+            type="text"
+            name="search"
+            id="search"
+            placeholder="Meklē dzīvokļus, īpašumus..."
+            className="w-full h-full rounded-l-full outline-none px-5 text-lg border-2 border-gray-300"
+            value={searchQ}
+            onChange={(e) => setSearchQ(e.target.value)}
+          />
 
-            <button
-              type="submit"
-              onClick={handleSearch}
-              disabled={!searchQ || loading}
-              className="w-40 h-full rounded-r-full bg-[#45b2d7] hover:bg-[#0998c8] text-white"
-            >
-              Meklēt
-            </button>
-          </div>
+          <button
+            type="submit"
+            onClick={handleSearch}
+            disabled={!searchQ || loading}
+            className="w-40 h-full rounded-r-full bg-[#45b2d7] hover:bg-[#0998c8] text-white"
+          >
+            Meklēt
+          </button>
         </div>
+
+        <div className="flex items-center justify-start w-full px-6 mt-2 mr-2">
+          <div className="flex flex-col bg-white p-2 rounded-lg">
+            <label htmlFor="city">Pilsēta:</label>
+
+            <select
+              name="city"
+              id="city"
+              className="h-8 rounded-full bg-gray-100 px-2  border-2 border-gray-300"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            >
+              {cities.map((city, i) => (
+                <option key={i} value={city.city}>
+                  {city.city}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* city, county, rooms, limit, year, month, registry_id */}
+        </div>
+
+        {/* city, county, rooms, limit, year, month, registry_id */}
       </div>
 
       <ResultsContainer iRef={resultsRef} />
