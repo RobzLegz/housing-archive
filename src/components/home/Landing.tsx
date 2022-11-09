@@ -17,8 +17,6 @@ const Landing = () => {
   const dispatch = useDispatch();
   const windowSize = useWindowSize();
 
-  const resultsRef =
-    useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>;
   const landingRef =
     useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>;
 
@@ -245,7 +243,7 @@ const Landing = () => {
         </div>
       </div>
 
-      <ResultsContainer iRef={resultsRef} />
+      <ResultsContainer />
     </form>
   );
 };
