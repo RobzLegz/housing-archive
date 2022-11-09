@@ -4,8 +4,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { searchRequest } from "../../requests/searchRequests";
 import ResultsContainer from "./ResultsContainer";
 import { useDispatch } from "react-redux";
-import { isServer } from "../../lib/isServer";
 import cities from "../../data/cities.json";
+import months from "../../data/months.json";
 
 const Landing = () => {
   const dispatch = useDispatch();
@@ -17,11 +17,14 @@ const Landing = () => {
 
   const router = useRouter();
 
-  const { s: urlQ } = router.query;
+  const { q: urlQ } = router.query;
 
   const [searchQ, setSearchQ] = useState(typeof urlQ !== "string" ? "" : urlQ);
   const [city, setCity] = useState("");
   const [rooms, setRooms] = useState("");
+  const [year, setYear] = useState("");
+  const [month, setMonth] = useState("");
+  const [regNr, setRegNr] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSearch = async (e?: React.MouseEvent) => {
@@ -29,13 +32,22 @@ const Landing = () => {
       e.preventDefault();
     }
 
-    if (loading || !searchQ) {
+    if (loading || (!searchQ && !city && !month && !year && !rooms && !regNr)) {
       return;
     }
 
     setLoading(true);
 
-    await searchRequest({ dispatch, query: searchQ, router });
+    await searchRequest({
+      dispatch,
+      query: searchQ,
+      router,
+      city,
+      rooms,
+      year,
+      month,
+      regNr,
+    });
 
     setLoading(false);
 
@@ -86,15 +98,18 @@ const Landing = () => {
           <button
             type="submit"
             onClick={handleSearch}
-            disabled={!searchQ || loading}
-            className="w-40 h-full rounded-r-full bg-[#45b2d7] hover:bg-[#0998c8] text-white"
+            disabled={
+              (!searchQ && !city && !month && !year && !rooms && !regNr) ||
+              loading
+            }
+            className="w-40 h-full rounded-r-full bg-[#45b2d7] hover:bg-[#0998c8] disabled:hover:bg-[#45b2d7] text-white"
           >
             Meklēt
           </button>
         </div>
 
-        <div className="flex items-center justify-start mt-2 mr-2 w-[95%] max-w-[1000px]">
-          <div className="flex flex-col bg-white pt-2 rounded-t-lg rounded-b-2xl overflow-hidden mr-2">
+        <div className="flex items-center justify-start mt-2 w-[95%] max-w-[1000px] gap-2">
+          <div className="flex flex-col bg-white pt-2 rounded-t-lg rounded-b-2xl overflow-hidden flex-1 shadow-lg">
             <label htmlFor="city" className="text-sm mb-1 ml-2">
               Pilsēta:
             </label>
@@ -106,6 +121,7 @@ const Landing = () => {
               value={city}
               onChange={(e) => setCity(e.target.value)}
             >
+              <option value="" />
               {cities.map((city, i) => (
                 <option key={i} value={city.city}>
                   {city.city}
@@ -114,18 +130,19 @@ const Landing = () => {
             </select>
           </div>
 
-          <div className="flex flex-col bg-white pt-2 rounded-t-lg rounded-b-2xl overflow-hidden mr-2">
-            <label htmlFor="city" className="text-sm mb-1 mx-2">
+          <div className="flex flex-col bg-white pt-2 rounded-t-lg rounded-b-2xl overflow-hidden flex-1 shadow-lg">
+            <label htmlFor="rooms" className="text-sm mb-1 mx-2">
               Istabu skaits:
             </label>
 
             <select
-              name="city"
-              id="city"
+              name="rooms"
+              id="rooms"
               className="h-8 rounded-full bg-gray-100 px-2 border-2 border-gray-300"
               value={rooms}
               onChange={(e) => setRooms(e.target.value)}
             >
+              <option value="" />
               {Array.from(Array(7).keys()).map((roomCount, i) => (
                 <option key={i} value={roomCount + 1}>
                   {roomCount + 1}
@@ -134,30 +151,68 @@ const Landing = () => {
             </select>
           </div>
 
-          <div className="flex flex-col bg-white pt-2 rounded-t-lg rounded-b-2xl overflow-hidden mr-2">
-            <label htmlFor="city" className="text-sm mb-1 mx-2">
+          <div className="flex flex-col bg-white pt-2 rounded-t-lg rounded-b-2xl overflow-hidden flex-1 shadow-lg">
+            <label htmlFor="year" className="text-sm mb-1 mx-2">
               Gads:
             </label>
 
             <select
-              name="city"
-              id="city"
+              name="year"
+              id="year"
               className="h-8 rounded-full bg-gray-100 px-2 border-2 border-gray-300"
-              value={rooms}
-              onChange={(e) => setRooms(e.target.value)}
+              value={year}
+              onChange={(e) => setYear(e.target.value)}
             >
-              {Array.from(Array(84).keys()).map((roomCount, i) => (
-                <option key={i} value={roomCount + 1940}>
-                  {roomCount + 1940}
+              <option value="" />
+
+              {Array.from(Array(new Date().getFullYear() - 1938).keys()).map(
+                (yearI, i) => (
+                  <option key={i} value={yearI + 1940}>
+                    {yearI + 1940}
+                  </option>
+                )
+              )}
+            </select>
+          </div>
+
+          <div className="flex flex-col bg-white pt-2 rounded-t-lg rounded-b-2xl overflow-hidden flex-1 shadow-lg">
+            <label htmlFor="month" className="text-sm mb-1 mx-2">
+              Mēnesis:
+            </label>
+
+            <select
+              name="month"
+              id="month"
+              className="h-8 rounded-full bg-gray-100 px-2 border-2 border-gray-300"
+              value={month}
+              onChange={(e) => setMonth(e.target.value)}
+            >
+              <option value="" />
+
+              {months.map((month, i) => (
+                <option key={i} value={month}>
+                  {month}
                 </option>
               ))}
             </select>
           </div>
 
-          {/* city, county, rooms, limit, year, month, registry_id */}
-        </div>
+          <div className="flex flex-col bg-white pt-2 rounded-t-lg rounded-b-2xl overflow-hidden flex-1 shadow-lg">
+            <label htmlFor="reg_nr" className="text-sm mb-1 mx-2">
+              Reģistrācijas Nr.:
+            </label>
 
-        {/* city, county, rooms, limit, year, month, registry_id */}
+            <input
+              type="text"
+              name="reg_nr"
+              id="reg_nr"
+              value={regNr}
+              onChange={(e) => setRegNr(e.target.value)}
+              placeholder="Ievadiet Reg. Nr."
+              className="h-8 rounded-full bg-gray-100 px-2 border-2 border-gray-300 text-sm outline-none"
+            />
+          </div>
+        </div>
       </div>
 
       <ResultsContainer iRef={resultsRef} />
