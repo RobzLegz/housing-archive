@@ -69,13 +69,11 @@ const EstateComponent: React.FC<EstateComponentProps> = ({ data }) => {
           <strong className="">Cena:</strong>
 
           <div className="flex">
-            <strong className="text-[#45b2d7] text-lg">
-              {data.summa}
-            </strong>
+            <strong className="text-[#45b2d7] md:text-lg">{data.summa}</strong>
 
             <p className="mx-1">|</p>
 
-            <p>({data["1m2"]} / m2)</p>
+            <p className="text-sm">({data["1m2"]} / m2)</p>
           </div>
         </div>
 

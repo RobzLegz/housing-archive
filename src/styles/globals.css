@@ -7,12 +7,12 @@
     @apply p-0 m-0 box-border font-hind_vadodara;
   }
 
-  body{
+  body {
     @apply bg-[#eee];
   }
 
   h1 {
-    @apply text-6xl font-semibold leading-[70px];
+    @apply text-5xl md:text-6xl font-semibold leading-[50px] md:leading-[70px];
   }
 
   h2 {
@@ -20,10 +20,10 @@
   }
 
   h3 {
-    @apply text-lg font-semibold ;
+    @apply text-lg font-semibold;
   }
 
-  button{
+  button {
     @apply transition-all duration-300;
   }
 

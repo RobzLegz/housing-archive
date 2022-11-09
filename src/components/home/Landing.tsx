@@ -85,39 +85,39 @@ const Landing = () => {
 
   return (
     <form className="w-full flex flex-col items-start justify-start relative">
-      <div className="w-full h-[90vh] absolute" ref={landingRef}>
+      <div className="w-full h-screen md:h-[90vh] absolute" ref={landingRef}>
         <Image
           src="/images/splash-house.jpg"
           alt="Splash house background"
-          className="rounded-r-full object-cover"
+          className="md:rounded-r-full object-cover"
           draggable={false}
           priority
           fill
         />
 
-        <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center flex-col rounded-r-full bg-transparent-300 ">
-          <div className="flex flex-col items-start justify-start w-[95%] max-w-[1000px] relative">
-            <h1 className="text-left text-white mb-10 w-[500px]">
+        <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center flex-col md:rounded-r-full bg-transparent-300 ">
+          <div className="w-[95%] max-w-[1000px] -mt-10 md:mt-0">
+            <h1 className="text-left text-white mb-10 w-full max-w-[350px] md:max-w-[500px]">
               Nekustamo īpašumu cenas katrā pilsētā
             </h1>
           </div>
         </div>
       </div>
 
-      <div className="h-[56vh]"></div>
+      <div className="h-[58vh] md:h-[56vh]"></div>
 
       <div
         className={`w-full sticky top-0 flex flex-col items-center justify-center z-50 py-2 transition-colors duration-300  ${
           showBg ? "bg-white border-b-2" : ""
         }`}
       >
-        <div className="flex w-[95%] max-w-[1000px] rounded-full items-center justify-center shadow-2xl overflow-hidden h-12">
+        <div className="flex w-[95%] max-w-[1000px] rounded-full items-center justify-center shadow-2xl overflow-hidden h-10 md:h-12">
           <input
             type="text"
             name="search"
             id="search"
             placeholder="Meklē dzīvokļus, īpašumus..."
-            className="w-full h-full rounded-l-full outline-none px-5 text-lg border-2 border-gray-300"
+            className="w-full h-full rounded-l-full outline-none px-2 md:px-5 md:text-lg border-2 border-gray-300"
             value={searchQ}
             onChange={(e) => setSearchQ(e.target.value)}
           />
@@ -129,13 +129,13 @@ const Landing = () => {
               (!searchQ && !city && !month && !year && !rooms && !regNr) ||
               loading
             }
-            className="w-40 h-full rounded-r-full bg-[#45b2d7] hover:bg-[#0998c8] disabled:hover:bg-[#45b2d7] text-white flex items-center justify-center"
+            className="w-24 md:w-40 h-full rounded-r-full bg-[#45b2d7] hover:bg-[#0998c8] disabled:hover:bg-[#45b2d7] text-white flex items-center justify-center"
           >
             {loading ? <Loading /> : <p>Meklēt</p>}
           </button>
         </div>
 
-        <div className="flex items-center justify-start mt-2 w-[95%] max-w-[1000px] gap-2">
+        <div className="grid items-center grid-cols-2 md:grid-cols-4 mt-2 w-[95%] max-w-[1000px] gap-2">
           <div className="flex flex-col bg-white pt-2 rounded-t-lg rounded-b-2xl overflow-hidden flex-1 shadow-lg">
             <label htmlFor="city" className="text-sm mb-1 ml-2">
               Pilsēta:
@@ -224,7 +224,7 @@ const Landing = () => {
             </select>
           </div>
 
-          <div className="flex flex-col bg-white pt-2 rounded-t-lg rounded-b-2xl overflow-hidden flex-1 shadow-lg">
+          {/* <div className="flex flex-col bg-white pt-2 rounded-t-lg rounded-b-2xl overflow-hidden flex-1 shadow-lg">
             <label htmlFor="reg_nr" className="text-sm mb-1 mx-2">
               Reģistrācijas Nr.:
             </label>
@@ -238,7 +238,7 @@ const Landing = () => {
               placeholder="Ievadiet Reg. Nr."
               className="h-8 rounded-full bg-gray-100 px-2 border-2 border-gray-300 text-sm outline-none"
             />
-          </div>
+          </div> */}
         </div>
       </div>
 
