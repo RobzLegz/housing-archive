@@ -2,8 +2,15 @@ import axios from "axios";
 import { NextRouter } from "next/router";
 import { Dispatch } from "redux";
 import { SearchResult } from "../interfaces/searchResult";
-import { setResults } from "../redux/slices/appSlice";
-import { API_BASE } from "../styles/routes";
+import {
+  loadMoreRdx,
+  setCount,
+  setLastReq,
+  setLimit,
+  setPage,
+  setResults,
+} from "../redux/slices/appSlice";
+import { API_BASE } from "./routes";
 
 export const searchRequest = async ({
   query,
@@ -76,7 +83,11 @@ export const searchRequest = async ({
     .then((res) => {
       const { data }: { data: SearchResult } = res;
 
+      dispatch(setPage(res.data.page + 1));
       dispatch(setResults(data.records));
+      dispatch(setCount(data.count));
+      dispatch(setLastReq(route));
+      dispatch(setLimit(data.limit));
 
       router.push(
         {
@@ -86,6 +97,32 @@ export const searchRequest = async ({
         undefined,
         { shallow: true }
       );
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const loadMore = async ({
+  dispatch,
+  url,
+  page,
+}: {
+  dispatch: Dispatch;
+  url: string;
+  page: number;
+}) => {
+  const route = `${url}&page=${page}`;
+
+  await axios
+    .get(route)
+    .then((res) => {
+      const { data }: { data: SearchResult } = res;
+
+      dispatch(setLimit(data.limit));
+      dispatch(setPage(data.page + 1));
+      dispatch(loadMoreRdx(data.records));
+      dispatch(setCount(data.count));
     })
     .catch((err) => {
       console.log(err);
