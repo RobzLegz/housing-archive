@@ -21,6 +21,7 @@ export const searchRequest = async ({
   rooms,
   year,
   month,
+  limit,
   regNr,
 }: {
   dispatch: Dispatch;
@@ -29,6 +30,7 @@ export const searchRequest = async ({
   county?: string;
   rooms: string;
   year: string;
+  limit: number;
   month: string;
   regNr: string;
   router: NextRouter;
@@ -47,6 +49,11 @@ export const searchRequest = async ({
   if (city) {
     route = `${route}city=${city}&`;
     routerQuery["city"] = city;
+  }
+
+  if (limit) {
+    route = `${route}limit=${limit}&`;
+    routerQuery["limit"] = String(limit);
   }
 
   if (county) {
