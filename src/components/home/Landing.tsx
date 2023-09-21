@@ -215,8 +215,8 @@ const Landing = () => {
               {Array.from(Array(new Date().getFullYear() - 1938).keys())
                 .reverse()
                 .map((yearI, i) => (
-                  <option key={i} value={yearI + 1940}>
-                    {yearI + 1940}
+                  <option key={i} value={yearI + 1939}>
+                    {yearI + 1939}
                   </option>
                 ))}
             </select>
