@@ -30,12 +30,10 @@ const Landing = () => {
     rooms: rRooms,
     county: rCounty,
     city: rCity,
-    count: rLimit,
   } = router.query;
 
   const [searchQ, setSearchQ] = useState(typeof urlQ !== "string" ? "" : urlQ);
   const [city, setCity] = useState(typeof rCity !== "string" ? "" : rCity);
-  const [count, setCount] = useState(rLimit ? rLimit : 50);
   const [rooms, setRooms] = useState(typeof rRooms !== "string" ? "" : rRooms);
   const [year, setYear] = useState(typeof rYear !== "string" ? "" : rYear);
   const [month, setMonth] = useState(typeof rMonth !== "string" ? "" : rMonth);
@@ -49,7 +47,6 @@ const Landing = () => {
     setSearchQ(typeof urlQ !== "string" ? "" : urlQ);
     setCity(typeof rCity !== "string" ? "" : rCity);
     setRooms(typeof rRooms !== "string" ? "" : rRooms);
-    setCount(typeof rLimit !== "string" ? "50" : rLimit);
     setYear(typeof rYear !== "string" ? "" : rYear);
     setMonth(typeof rMonth !== "string" ? "" : rMonth);
     setRegNr(typeof registry_id !== "string" ? "" : registry_id);
@@ -72,7 +69,6 @@ const Landing = () => {
       router,
       city,
       rooms,
-      limit: Number(count),
       year,
       month,
       regNr,
@@ -159,7 +155,7 @@ const Landing = () => {
           </button>
         </div>
 
-        <div className="grid items-center grid-cols-2 md:grid-cols-5 mt-2 w-[95%] max-w-[1000px] gap-2">
+        <div className="grid items-center grid-cols-2 md:grid-cols-4 mt-2 w-[95%] max-w-[1000px] gap-2">
           <div className={filterStyle}>
             <label htmlFor="city" className="text-sm mb-1 ml-2">
               Pilsēta:
@@ -245,26 +241,6 @@ const Landing = () => {
                   {month}
                 </option>
               ))}
-            </select>
-          </div>
-
-          <div className={filterStyle}>
-            <label htmlFor="count" className="text-sm mb-1 mx-2">
-              Rezultātu skaits:
-            </label>
-
-            <select
-              name="count"
-              id="count"
-              className="h-8 rounded-full bg-gray-100 px-2 border-2 border-gray-300"
-              value={count}
-              onChange={(e) => setCount(e.target.value)}
-            >
-              <option value="50">50</option>
-              <option value="40">40</option>
-              <option value="30">30</option>
-              <option value="20">20</option>
-              <option value="10">10</option>
             </select>
           </div>
         </div>

@@ -37,7 +37,11 @@ const ResultsContainer: React.FC = () => {
   }
 
   return (
-    <section className="w-full flex flex-col items-center justify-center my-[10vh] z-10">
+    <section className="w-full flex flex-col items-center justify-center my-[20vh] z-10">
+      {appInfo.count && (
+        <p className="text-center mb-4 text-black">{appInfo.count} rezultāti</p>
+      )}
+
       {appInfo.results.map((result, i) => (
         <SearchResult data={result} key={i} />
       ))}
