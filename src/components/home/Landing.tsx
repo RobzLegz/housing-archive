@@ -118,7 +118,7 @@ const Landing = () => {
         <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center flex-col md:rounded-r-full bg-transparent-300 ">
           <div className="w-[95%] max-w-[1000px] -mt-10 md:mt-0">
             <h1 className="text-left text-white mb-10 w-full max-w-[350px] md:max-w-[500px]">
-              Nekustamo īpašumu cenas katrā pilsētā
+              Nekustamo īpašumu darījumu arhīvs
             </h1>
           </div>
         </div>
@@ -136,7 +136,7 @@ const Landing = () => {
             type="text"
             name="search"
             id="search"
-            placeholder="Meklē dzīvokļus, īpašumus..."
+            placeholder="piem. Gaujas iela 2"
             className="w-full h-full rounded-l-full outline-none px-2 md:px-5 md:text-lg border-2 border-gray-300"
             value={searchQ}
             onChange={(e) => setSearchQ(e.target.value)}
