@@ -39,7 +39,7 @@ const ResultsContainer: React.FC = () => {
   return (
     <section className="w-full flex flex-col items-center justify-center my-[20vh] z-10">
       {appInfo.count && (
-        <p className="text-center mb-4 text-black">{appInfo.count} rezultāti</p>
+        <p className="text-center mb-4 text-black">{appInfo.count} darījumi</p>
       )}
 
       {appInfo.results.map((result, i) => (
