@@ -136,7 +136,7 @@ const Landing = () => {
             type="text"
             name="search"
             id="search"
-            placeholder="piem. Gaujas iela 2"
+            placeholder="piem. Gaujas iela 2 - 35"
             className="w-full h-full rounded-l-full outline-none px-2 md:px-5 md:text-lg border-2 border-gray-300"
             value={searchQ}
             onChange={(e) => setSearchQ(e.target.value)}
