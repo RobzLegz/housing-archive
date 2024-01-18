@@ -15,22 +15,34 @@ const PageModule: PageComponent<PageModuleProps> = ({
 }) => {
   return (
     <main>
+      <Head>
+        <title>{`Īpašumu arhīvs${title ? ` | ${title}` : ""}`}</title>
+        <meta name="description" content={description} />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
     {/* <!-- Messenger Chat Plugin Code --> */}
     <div id="fb-root"></div>
 
     {/* <!-- Your Chat Plugin code --> */}
-    <div id="fb-customer-chat" class="fb-customerchat">
-    </div>
+    <div id="fb-customer-chat" class="fb-customerchat"></div>
 
-    <script>
-      var chatbox = document.getElementById('fb-customer-chat');
-      chatbox.setAttribute("page_id", "129886600213748");
-      chatbox.setAttribute("attribution", "biz_inbox");
-    </script>
-
+        <Script
+          id="messenger-tag"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `var chatbox = document.getElementById('fb-customer-chat');
+                     chatbox.setAttribute("page_id", "129886600213748");
+                     chatbox.setAttribute("attribution", "biz_inbox");`,
+          }}
+        ></Script
+             
     {/* <!-- Your SDK code --> */}
-    <script>
-      window.fbAsyncInit = function() {
+        <Script
+          id="messenger-sdk"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `window.fbAsyncInit = function() {
         FB.init({
           xfbml            : true,
           version          : 'v18.0'
@@ -43,14 +55,9 @@ const PageModule: PageComponent<PageModuleProps> = ({
         js = d.createElement(s); js.id = id;
         js.src = 'https://connect.facebook.net/en_GB/sdk/xfbml.customerchat.js';
         fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
-    </script>
-      <Head>
-        <title>{`Īpašumu arhīvs${title ? ` | ${title}` : ""}`}</title>
-        <meta name="description" content={description} />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
+      }(document, 'script', 'facebook-jssdk'));`,
+          }}
+        ></Script      
       {children}
     </main>
   );
