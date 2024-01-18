@@ -15,10 +15,10 @@ const PageModule: PageComponent<PageModuleProps> = ({
 }) => {
   return (
     <main>
-    <!-- Messenger Chat Plugin Code -->
+    {/* <!-- Messenger Chat Plugin Code --> */}
     <div id="fb-root"></div>
 
-    <!-- Your Chat Plugin code -->
+    {/* <!-- Your Chat Plugin code --> */}
     <div id="fb-customer-chat" class="fb-customerchat">
     </div>
 
@@ -28,7 +28,7 @@ const PageModule: PageComponent<PageModuleProps> = ({
       chatbox.setAttribute("attribution", "biz_inbox");
     </script>
 
-    <!-- Your SDK code -->
+    {/* <!-- Your SDK code --> */}
     <script>
       window.fbAsyncInit = function() {
         FB.init({
