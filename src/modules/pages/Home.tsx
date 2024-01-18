@@ -6,6 +6,7 @@ const Home = () => {
   return (
     <PageModule description="Īpašumu meklēšanas dzinējs">
       <Landing />
+      <Facebook />
     </PageModule>
   );
 };
