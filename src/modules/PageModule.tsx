@@ -20,7 +20,6 @@ const PageModule: PageComponent<PageModuleProps> = ({
         <meta name="description" content={description} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       {children}
     </main>
   );
