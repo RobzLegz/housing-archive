@@ -1,6 +1,8 @@
 import Head from "next/head";
 import React from "react";
 import { PageComponent } from "../types/pageComponent";
+import FBMessengerWidget from "../components/notifications/FBMessengerWidget";
+import ChatBot from "../components/notifications/FBChatbot";
 
 interface PageModuleProps {
   title?: string;
@@ -22,6 +24,10 @@ const PageModule: PageComponent<PageModuleProps> = ({
       </Head>
 
       {children}
+
+      <ChatBot />
+
+      {/* <FBMessengerWidget /> */}
     </main>
   );
 };
