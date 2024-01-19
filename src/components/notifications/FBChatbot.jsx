@@ -1,39 +1,37 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 
-const ChatBot = () => {
-  const MessengerRef = useRef(null);
-
+const FacebookChat = () => {
   useEffect(() => {
-    if (MessengerRef.current) {
-      MessengerRef.current?.setAttribute("page_id", process.env.NEXT_PUBLIC_FB_BAGE_ID);
-      MessengerRef.current?.setAttribute("attribution", "biz_inbox");
+    // Your Chat Plugin code
+    const chatbox = document.getElementById("fb-customer-chat");
+    chatbox.setAttribute("page_id", "129886600213748");
+    chatbox.setAttribute("attribution", "biz_inbox");
 
-      window.fbAsyncInit = function () {
-        window.FB.init({
-          xfbml: true,
-          version: "v16.0",
-        });
-      };
-      (function (d, s, id) {
-        var js,
-          fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js";
-        fjs.parentNode.insertBefore(js, fjs);
-      })(document, "script", "facebook-jssdk");
-    }
+    // Your SDK code
+    window.fbAsyncInit = function () {
+      window.FB.init({
+        xfbml: true,
+        version: "v18.0",
+      });
+    };
+
+    (function (d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://connect.facebook.net/en_GB/sdk/xfbml.customerchat.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    })(document, "script", "facebook-jssdk");
   }, []);
+
   return (
-    <>
-      <div id="fb-root"></div>
-      <div
-        ref={MessengerRef}
-        id="fb-customer-chat"
-        className="fb-customerchat"
-      ></div>
-    </>
+    <div>
+      {/* Your Chat Plugin code */}
+      <div id="fb-customer-chat" className="fb-customerchat"></div>
+    </div>
   );
 };
-export default ChatBot;
+
+export default FacebookChat;
